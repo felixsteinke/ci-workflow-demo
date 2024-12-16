@@ -66,7 +66,7 @@ jobs:
     name: CF Cleanup
     runs-on: ubuntu-latest
     needs: bg-evaluation
-    if: always() && ${{ inputs.bg-deploy == true }} && ${{ needs.bg-evaluation.result == 'success' }}
+    if: ${{ always() && inputs.bg-deploy == true && needs.bg-evaluation.result == 'success' }}
     steps:
       - name: Deploy to Green Environment
         if: ${{ env.decision == 'proceed' }}
@@ -76,7 +76,7 @@ jobs:
     name: CF Rollback
     runs-on: ubuntu-latest
     needs: bg-evaluation
-    if: always() && ${{ inputs.bg-deploy == true }} && ${{ needs.bg-evaluation.result != 'success' }}
+    if: ${{ always() && inputs.bg-deploy == true && needs.bg-evaluation.result != 'success' }}
     steps:
       - name: Deploy to Green Environment
         run: echo "Rollback environment."
