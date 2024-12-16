@@ -53,9 +53,11 @@ jobs:
 
   bg-evaluation:
     name: Blue/Green Evaluation
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted ]
+    permissions:
+      contents: read
+      id-token: write
     if: ${{ inputs.bg-deploy == true }}
-    continue-on-error: true
     needs: cf-deployment
     environment:
       name: blue-green-deployment
@@ -64,25 +66,27 @@ jobs:
       - name: Evaluate Deployment
         run: echo "Evaluating deployment in Blue environment."
 
-  cleanup_or_rollback:
-    name: CF Cleanup or Rollback
-    runs-on: ubuntu-latest
-    if: ${{ inputs.bg-deploy == true }}
-    needs: bg-evaluation
+  cf-continue-bg:
+    name: CF Cleanup
+    runs-on: [ self-hosted ]
+    permissions:
+      contents: read
+      id-token: write
+    if: ${{ "${{ github.job.bg-evaluation }}" == "success" }}
 
     steps:
-      - name: Determine Action
-        id: decision
-        run: |
-          if [ "${{ needs.bg-evaluation.result }}" == "success" ]; then
-            echo "decision=proceed" >> $GITHUB_ENV
-          else
-            echo "decision=rollback" >> $GITHUB_ENV
-
       - name: Deploy to Green Environment
         if: ${{ env.decision == 'proceed' }}
-        run: echo "Deploying to Green environment and cleaning up Blue."
+        run: echo "Cleanup environment."
 
-      - name: Rollback to Initial Version
-        if: ${{ env.decision == 'rollback' }}
-        run: echo "Rolling back to initial version and cleaning up Blue."
+  cf-rollback-bg:
+    name: CF Rollback
+    runs-on: [ self-hosted ]
+    permissions:
+      contents: read
+      id-token: write
+    if: ${{ "${{ github.job.bg-evaluation }}" == "fail" }}
+
+    steps:
+      - name: Deploy to Green Environment
+        run: echo "Rollback environment."
