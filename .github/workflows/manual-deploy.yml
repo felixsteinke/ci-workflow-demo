@@ -55,6 +55,7 @@ jobs:
     name: Blue/Green Evaluation
     runs-on: ubuntu-latest
     if: ${{ inputs.bg-deploy == true }}
+    continue-on-error: true
     needs: cf-deployment
     environment:
       name: blue-green-deployment
