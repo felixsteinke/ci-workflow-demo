@@ -2,7 +2,6 @@ name: Manual Deploy Pipeline
 
 on:
   workflow_dispatch:
-    # Inputs the workflow accepts.
     inputs:
       space:
         description: "Select the Cloud Foundry Space"
@@ -26,7 +25,6 @@ on:
         required: true
         default: "main"
         type: string
-
 
 jobs:
   cf-deployment:
@@ -66,26 +64,24 @@ jobs:
         run: echo "Evaluating deployment in Blue environment."
 
   cleanup_or_rollback:
-      name: CF Cleanup or Rollback
-      runs-on: ubuntu-latest
-      if: ${{ inputs.bg-deploy == true }}
-      needs: bg-evaluation
+    name: CF Cleanup or Rollback
+    runs-on: ubuntu-latest
+    if: ${{ inputs.bg-deploy == true }}
+    needs: bg-evaluation
 
-      steps:
-        - name: Determine Action
-          id: decision
-          run: |
-            if [ "${{ github.job.bg-evaluation }}" = "success" ]; then
-              echo "decision=proceed" >> $GITHUB_ENV
-            else
-              echo "decision=rollback" >> $GITHUB_ENV
+    steps:
+      - name: Determine Action
+        id: decision
+        run: |
+          if [ "${{ needs.bg-evaluation.result }}" == "success" ]; then
+            echo "decision=proceed" >> $GITHUB_ENV
+          else
+            echo "decision=rollback" >> $GITHUB_ENV
 
-        - name: Deploy to Green Environment
-          if: ${{ env.decision == 'proceed' }}
-          run: echo "Deploying to Green environment and cleaning up Blue."
+      - name: Deploy to Green Environment
+        if: ${{ env.decision == 'proceed' }}
+        run: echo "Deploying to Green environment and cleaning up Blue."
 
-        - name: Rollback to Initial Version
-          if: ${{ env.decision == 'rollback' }}
-          run: echo "Rolling back to initial version and cleaning up Blue."
-
-
+      - name: Rollback to Initial Version
+        if: ${{ env.decision == 'rollback' }}
+        run: echo "Rolling back to initial version and cleaning up Blue."
