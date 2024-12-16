@@ -58,10 +58,10 @@ jobs:
       contents: read
       id-token: write
     if: ${{ inputs.bg-deploy == true }}
+    continue-on-error: true
     needs: cf-deployment
     environment:
       name: blue-green-deployment
-
     steps:
       - name: Evaluate Deployment
         run: echo "Evaluating deployment in Blue environment."
@@ -72,8 +72,8 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    if: ${{ "${{ github.job.bg-evaluation }}" == "success" }}
-
+    needs: bg-evaluation
+    if: ${{ needs.bg-evaluation.result == 'success' }}
     steps:
       - name: Deploy to Green Environment
         if: ${{ env.decision == 'proceed' }}
@@ -85,8 +85,8 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    if: ${{ "${{ github.job.bg-evaluation }}" == "fail" }}
-
+    needs: bg-evaluation
+    if: ${{ needs.bg-evaluation.result == 'failure' }}
     steps:
       - name: Deploy to Green Environment
         run: echo "Rollback environment."
