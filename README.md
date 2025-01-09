@@ -48,8 +48,8 @@ npm run deploy
 __Description:__
 
 - [Service 1](./packages/service-1): a simple & independent service with business logic, tests, and infrastructure code
-- [Service 2](./packages/service-2): identical to Service 1
-- [Service 3](./packages/service-3): identical to Service 1
+- [Service 2](./packages/service-2): identical to Service 1 with medium load
+- [Service 3](./packages/service-3): identical to Service 1 with highest load
 
 ## CI/CD Pipelines
 
