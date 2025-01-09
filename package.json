@@ -5,10 +5,10 @@
   "description": "Basic Project for CI/CD Demo",
   "scripts": {
     "prettier": "prettier . --write",
-    "build": "npm run --prefix ./packages/service-1 build && npm run --prefix ./packages/service-2 build && npm run --prefix ./packages/service-3 build",
-    "lint": "npm run --prefix ./packages/service-1 lint && npm run --prefix ./packages/service-2 lint && npm run --prefix ./packages/service-3 lint",
-    "test": "npm run --prefix ./packages/service-1 test && npm run --prefix ./packages/service-2 test && npm run --prefix ./packages/service-3 test",
-    "deploy": "npm run --prefix ./packages/service-1 deploy && npm run --prefix ./packages/service-2 deploy && npm run --prefix ./packages/service-3 deploy"
+    "build": "concurrently \"npm run --prefix ./packages/service-1 build\" \"npm run --prefix ./packages/service-2 build\"  \"npm run --prefix ./packages/service-3 build\"",
+    "lint": "concurrently \"npm run --prefix ./packages/service-1 lint\" \"npm run --prefix ./packages/service-2 lint\"  \"npm run --prefix ./packages/service-3 lint\"",
+    "test": "concurrently \"npm run --prefix ./packages/service-1 test\" \"npm run --prefix ./packages/service-2 test\"  \"npm run --prefix ./packages/service-3 test\"",
+    "deploy": "concurrently \"npm run --prefix ./packages/service-1 deploy\" \"npm run --prefix ./packages/service-2 deploy\"  \"npm run --prefix ./packages/service-3 deploy\""
   },
   "workspaces": [
     "packages/*"
@@ -28,6 +28,7 @@
     "@types/node": "^20.17.12",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
+    "concurrently": "^9.1.2",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
