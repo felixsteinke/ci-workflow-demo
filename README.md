@@ -53,16 +53,20 @@ __Description:__
 
 ## CI/CD Pipelines
 
+All pipelines are created with a manual trigger:
+
+![Manual Trigger](./.images/manual-ci-trigger.png)
+
 ### Simple CI Pipeline
 
 __Workflow YAML__: [Simple CI Pipeline](./.github/workflows/simple-ci.yml)
 
-- Build & Lint
+- Build
   - Checkout code
   - Install Node.js (including NPM)
   - Prepare NPM Cache
   - Install Dependencies
-  - Run NPM Scripts
+  - Run NPM Script
 - Test
   - Checkout code
   - Install Node.js (including NPM)
