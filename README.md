@@ -1,7 +1,7 @@
 # CI Workflow Demo
 
-This repository contains a demo project for a CI workflow. 
-The project is a monorepo with multiple services. 
+This repository contains a demo project for a CI workflow.
+The project is a monorepo with multiple services.
 Each service contains business logic, tests, and infrastructure code.
 
 ### Technology
@@ -16,18 +16,18 @@ Each service contains business logic, tests, and infrastructure code.
 ### System Requirements
 
 - Node.js v20+: [Download](https://nodejs.org/en/download/)
-   - Test Command: `node -v`
+    - Test Command: `node -v`
 - NPM v10+: Gets installed with Node.js
-   - Test Command: `npm -v`
+    - Test Command: `npm -v`
 - Recommended IDE:
-   - Visual Studio Code: [Download](https://code.visualstudio.com/download)
-   - IntelliJ IDEA: [Download](https://www.jetbrains.com/idea/download/)
+    - Visual Studio Code: [Download](https://code.visualstudio.com/download)
+    - IntelliJ IDEA: [Download](https://www.jetbrains.com/idea/download/)
 
 ### Scripts
 
 > All scripts can get executed from the root directory.
 
-```
+```shell
 npm install
 
 npm run build
@@ -37,6 +37,7 @@ npm run test:int
 npm run test:e2e
 npm run deploy
 ```
+
 ### Mono-Repo Packages
 
 ```
@@ -62,23 +63,23 @@ All pipelines are created with a manual trigger:
 __Workflow YAML__: [Simple CI Pipeline](./.github/workflows/simple-ci.yml)
 
 - Build Job
-  - Checkout code
-  - Install Node.js (including NPM)
-  - Prepare NPM Cache
-  - Install Dependencies
-  - Run NPM Script
+    - Checkout code
+    - Install Node.js (including NPM)
+    - Prepare NPM Cache
+    - Install Dependencies
+    - Run NPM Script
 - Test Job
-  - Checkout code
-  - Install Node.js (including NPM)
-  - Prepare NPM Cache
-  - Install Dependencies
-  - Run NPM Script
+    - Checkout code
+    - Install Node.js (including NPM)
+    - Prepare NPM Cache
+    - Install Dependencies
+    - Run NPM Script
 - Deploy Job
-  - Checkout code
-  - Install Node.js (including NPM)
-  - Prepare NPM Cache
-  - Install Dependencies
-  - Run NPM Script
+    - Checkout code
+    - Install Node.js (including NPM)
+    - Prepare NPM Cache
+    - Install Dependencies
+    - Run NPM Script
 
 ### Eco CI Demo Pipeline
 
@@ -87,19 +88,51 @@ __Workflow YAML__: [Simple CI Pipeline](./.github/workflows/simple-ci.yml)
 __Workflow YAML__: [Eco CI Demo Pipeline](./.github/workflows/eco-ci-demo.yml)
 
 - Eco-CI Job
-  - Eco-CI Initialization
-  - Install Node.js (including NPM)
-  - Eco-CI Measurement
-  - Eco-CI Results
+    - Eco-CI Initialization
+    - Install Node.js (including NPM)
+    - Eco-CI Measurement
+    - Eco-CI Results
 
+### Advanced CI Pipeline
+
+__Workflow YAML__: [Advanced CI Pipeline](./.github/workflows/advanced-ci.yml)
+
+- Build Job
+    - Checkout code
+    - Install Node.js (including NPM)
+    - Prepare NPM Cache
+    - Install Dependencies
+    - Run NPM Script
+- Test Job
+    - Checkout code
+    - Install Node.js (including NPM)
+    - Prepare NPM Cache
+    - Install Dependencies
+    - Run NPM Script
+- Lint Job
+    - Checkout code
+    - Install Node.js (including NPM)
+    - Prepare NPM Cache
+    - Install Dependencies
+    - Run NPM Script
+- Security Scan Job
+    - Checkout code
+    - Initialize CodeQL
+    - Perform CodeQL Analysis
+- Deploy Job
+    - Checkout code
+    - Install Node.js (including NPM)
+    - Prepare NPM Cache
+    - Install Dependencies
+    - Run NPM Script
 
 ## Service X
 
 ### Scripts
 
-> All npm scripts can get executed from the within the package directories.
+> All npm scripts can get executed from within the package directories.
 
-```
+```shell
 npm install
 cd ./packages/service-X
 
