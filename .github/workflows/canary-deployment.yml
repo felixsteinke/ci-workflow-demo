@@ -1,4 +1,4 @@
-name: Canary Deployment CI
+name: Canary Deployment Pipeline
 
 on:
   workflow_dispatch:

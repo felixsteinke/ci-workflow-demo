@@ -126,6 +126,51 @@ __Workflow YAML__: [Advanced CI Pipeline](./.github/workflows/advanced-ci.yml)
     - Install Dependencies
     - Run NPM Script
 
+### Mono Repo CI Pipeline
+
+__Workflow YAML__: [Mono Repo CI Pipeline](./.github/workflows/mono-repo-ci.yml)
+
+- Build Job
+    - Checkout code
+    - Set up Node.js
+    - Install dependencies
+    - Build each service
+- Test Job
+    - Checkout code
+    - Set up Node.js
+    - Install dependencies
+    - Run tests for each service
+- Lint Job
+    - Checkout code
+    - Set up Node.js
+    - Install dependencies
+    - Run lint for each service
+- Security Scan Job
+    - Checkout code
+    - Initialize CodeQL
+    - Perform CodeQL Analysis
+- Deploy Job
+    - Checkout code
+    - Set up Node.js
+    - Install dependencies
+    - Deploy each service
+
+### Canary Deployment Pipeline
+
+__Workflow YAML__: [Canary Deployment Pipeline](./.github/workflows/canary-deployment.yml)
+
+> Prerequisite: Setup of environment `deployment-approval` with enabled __Required reviewers__
+
+- Deployment Job
+    - Checkout code
+    - Deploy Artifact
+- Deployment Evaluation (optional if __enabled__)
+    - Is pending until the manual approval through the `deployment-approval` environment
+- Continue Deployment Job
+    - Update Environment to new Version if __approved__
+- Rollback Deployment Job
+    - Rollback Environment to old Version if __rejected__
+
 ## Service X
 
 ### Scripts
