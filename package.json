@@ -4,9 +4,6 @@
   "version": "1.0.0",
   "description": "Basic Project for CI/CD Demo",
   "scripts": {
-    "build": "tsc --build ./tsconfig.lib.json && node bundle.js",
-    "test": "jest",
-    "lint": "eslint .",
     "prettier": "prettier . --write"
   },
   "workspaces": [
