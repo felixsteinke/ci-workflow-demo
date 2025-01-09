@@ -1,0 +1,29 @@
+name: Eco-CI Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  eco-ci-job:
+    name: Eco-CI Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Eco-CI Initialization
+        uses: green-coding-berlin/eco-ci-energy-estimation@main
+        with:
+          task: start-measurement
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Eco-CI Measurement
+        uses: green-coding-berlin/eco-ci-energy-estimation@main
+        with:
+          task: get-measurement
+
+      - name: Eco-CI Results
+        uses: green-coding-berlin/eco-ci-energy-estimation@main
+        with:
+          task: display-results

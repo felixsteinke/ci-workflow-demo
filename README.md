@@ -61,24 +61,37 @@ All pipelines are created with a manual trigger:
 
 __Workflow YAML__: [Simple CI Pipeline](./.github/workflows/simple-ci.yml)
 
-- Build
+- Build Job
   - Checkout code
   - Install Node.js (including NPM)
   - Prepare NPM Cache
   - Install Dependencies
   - Run NPM Script
-- Test
+- Test Job
   - Checkout code
   - Install Node.js (including NPM)
   - Prepare NPM Cache
   - Install Dependencies
   - Run NPM Script
-- Deploy
+- Deploy Job
   - Checkout code
   - Install Node.js (including NPM)
   - Prepare NPM Cache
   - Install Dependencies
   - Run NPM Script
+
+### Eco CI Demo Pipeline
+
+> See [github.com/eco-ci](https://github.com/green-coding-solutions/eco-ci-energy-estimation) for more information.
+
+__Workflow YAML__: [Eco CI Demo Pipeline](./.github/workflows/eco-ci-demo.yml)
+
+- Eco-CI Job
+  - Eco-CI Initialization
+  - Install Node.js (including NPM)
+  - Eco-CI Measurement
+  - Eco-CI Results
+
 
 ## Service X
 
