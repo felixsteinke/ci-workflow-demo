@@ -1,4 +1,4 @@
-import { nodeJsLambdaHandler } from './handler-loader';
+import { nodeJsLambdaHandler } from '../utility/handler-loader';
 import { resolve as pathResolve } from 'path';
 
 const handlerPath = pathResolve(__dirname, '../../src/lambda-handler/simple-function.ts');

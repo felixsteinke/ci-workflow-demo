@@ -12,6 +12,7 @@ const config: Config = {
   },
   moduleFileExtensions: ['ts', 'js'],
   coverageReporters: [['lcov', { projectRoot: '../../' }]],
+  verbose: true,
 };
 
 export default config;
