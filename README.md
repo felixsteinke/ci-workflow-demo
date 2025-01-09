@@ -67,6 +67,9 @@ All pipelines are created with a manual trigger:
 
 __Workflow YAML__: [Simple CI Pipeline](./.github/workflows/simple-ci.yml)
 
+<details>
+<summary>Click to expand job descriptions...</summary>
+
 - Build Job
     - Checkout code
     - Install Node.js (including NPM)
@@ -86,11 +89,16 @@ __Workflow YAML__: [Simple CI Pipeline](./.github/workflows/simple-ci.yml)
     - Install Dependencies
     - Run NPM Script
 
+</details>
+
 ### Eco CI Demo Pipeline
 
 > See [github.com/eco-ci](https://github.com/green-coding-solutions/eco-ci-energy-estimation) for more information.
 
 __Workflow YAML__: [Eco CI Demo Pipeline](./.github/workflows/eco-ci-demo.yml)
+
+<details>
+<summary>Click to expand job descriptions...</summary>
 
 - Eco-CI Job
     - Eco-CI Initialization
@@ -98,9 +106,14 @@ __Workflow YAML__: [Eco CI Demo Pipeline](./.github/workflows/eco-ci-demo.yml)
     - Eco-CI Measurement
     - Eco-CI Results
 
+</details>
+
 ### Advanced CI Pipeline
 
 __Workflow YAML__: [Advanced CI Pipeline](./.github/workflows/advanced-ci.yml)
+
+<details>
+<summary>Click to expand job descriptions...</summary>
 
 - Build Job
     - Checkout code
@@ -131,9 +144,14 @@ __Workflow YAML__: [Advanced CI Pipeline](./.github/workflows/advanced-ci.yml)
     - Install Dependencies
     - Run NPM Script
 
+</details>
+
 ### Mono Repo CI Pipeline
 
 __Workflow YAML__: [Mono Repo CI Pipeline](./.github/workflows/mono-repo-ci.yml)
+
+<details>
+<summary>Click to expand job descriptions...</summary>
 
 - Build Job
     - Checkout code
@@ -160,11 +178,16 @@ __Workflow YAML__: [Mono Repo CI Pipeline](./.github/workflows/mono-repo-ci.yml)
     - Install dependencies
     - Deploy each service
 
+</details>
+
 ### Canary Deployment Pipeline
 
 __Workflow YAML__: [Canary Deployment Pipeline](./.github/workflows/canary-deployment.yml)
 
 > Prerequisite: Setup of environment `deployment-approval` with enabled __Required reviewers__
+
+<details>
+<summary>Click to expand job descriptions...</summary>
 
 - Deployment Job
     - Checkout code
@@ -175,6 +198,8 @@ __Workflow YAML__: [Canary Deployment Pipeline](./.github/workflows/canary-deplo
     - Update Environment to new Version if __approved__
 - Rollback Deployment Job
     - Rollback Environment to old Version if __rejected__
+
+</details>
 
 ## Service X
 
