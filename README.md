@@ -27,7 +27,7 @@ Each service contains business logic, tests, and infrastructure code.
 
 > All scripts can get executed from the root directory.
 
-```shell
+```
 npm install
 
 npm run build
@@ -53,6 +53,8 @@ __Description:__
 - [Service 3](./packages/service-3): identical to Service 1 with highest load
 
 ## CI/CD Pipelines
+
+> Quick-Link: [GitHub Actions Syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions)
 
 All pipelines are created with a manual trigger:
 
@@ -177,7 +179,7 @@ __Workflow YAML__: [Canary Deployment Pipeline](./.github/workflows/canary-deplo
 
 > All npm scripts can get executed from within the package directories.
 
-```shell
+```
 npm install
 cd ./packages/service-X
 
