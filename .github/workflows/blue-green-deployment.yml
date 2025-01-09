@@ -1,0 +1,76 @@
+name: Deploy Pipeline Blue/Green
+
+on:
+  workflow_dispatch:
+    inputs:
+      space:
+        description: "Select the Deployment Stage"
+        required: true
+        type: choice
+        options:
+          - "DEV"
+          - "INT"
+          - "PROD"
+
+      bg-deploy:
+        description: "Run as Blue/Green Deployment?"
+        required: true
+        default: false
+        type: boolean
+
+      git-ref:
+        description: "Set the Git Tag, Branch (e.g. main) or Commit SHA"
+        required: true
+        default: "main"
+        type: string
+
+jobs:
+  cf-deployment:
+    name: Deploy to Cloud Platform
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.git-ref }}
+
+      - name: Deploy Artifact
+        if: ${{ inputs.bg-deploy == false }}
+        shell: sh
+        run: echo "[WARN] Deploy Job not connected yet!"
+
+      - name: Deploy Artifact (Blue/Green)
+        if: ${{ inputs.bg-deploy == true }}
+        shell: sh
+        run: echo "[WARN] BG Deploy Job not connected yet!"
+
+  bg-evaluation:
+    name: Blue/Green Evaluation
+    runs-on: ubuntu-latest
+    if: ${{ inputs.bg-deploy == true }}
+    needs: cf-deployment
+    environment:
+      name: blue-green-deployment
+    steps:
+      - name: Evaluate Deployment
+        run: echo "Evaluating deployment in Blue environment."
+
+  cf-continue-bg:
+    name: Deployment Update
+    runs-on: ubuntu-latest
+    needs: bg-evaluation
+    if: ${{ always() && inputs.bg-deploy == true && needs.bg-evaluation.result == 'success' }}
+    steps:
+      - name: Update Environment to new Version
+        if: ${{ env.decision == 'proceed' }}
+        run: echo "Cleanup environment."
+
+  cf-rollback-bg:
+    name: Deployment Rollback
+    runs-on: ubuntu-latest
+    needs: bg-evaluation
+    if: ${{ always() && inputs.bg-deploy == true && needs.bg-evaluation.result != 'success' }}
+    steps:
+      - name: Rollback Environment to old Version
+        run: echo "Rollback environment."

@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "app.out"
+  },
+  "exclude": ["jest*.config.ts", "test/**/*.test.ts", "test/**/*.int-test.ts", "test/**/*.e2e-test.ts"],
+  "include": ["src/**/*.ts", "cdk/**/*.ts"]
+}

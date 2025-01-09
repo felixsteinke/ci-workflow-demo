@@ -1,0 +1,9 @@
+.vscode/
+.idea/
+.settings/
+
+**/node_modules/
+**/coverage/
+**/*.out/
+**/dist/
+**/public/
