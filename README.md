@@ -42,15 +42,18 @@ npm run deploy
 
 ```
 |-----------|      |-----------|      |-----------|
-| Service 1 |      | Service 1 |      | Service 1 |
+| Service 1 |      | Service 2 |      | Service 3 |
 |-----------|      |-----------|      |-----------|
 ```
 
 __Description:__
 
-- [Service 1](./packages/service-1): a simple & independent service with business logic, tests, and infrastructure code
-- [Service 2](./packages/service-2): identical to Service 1 with medium load
-- [Service 3](./packages/service-3): identical to Service 1 with highest load
+Each service is independent with business logic, tests, and infrastructure code.
+The content itself is identical.
+
+- [Service 1](./packages/service-1): has the lowest load
+- [Service 2](./packages/service-2): has medium load
+- [Service 3](./packages/service-3): is the heaviest load
 
 ## CI/CD Pipelines
 
