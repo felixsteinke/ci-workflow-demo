@@ -98,7 +98,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        fail-fast: false
         include:
           - language: javascript-typescript
             build-mode: none
