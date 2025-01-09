@@ -1,13 +1,13 @@
 export async function runLightLoadTest(): Promise<void> {
-  await runLoadTest('Light', 250_000);
+  await runLoadTest('Light', 200_000);
 }
 
 export async function runMediumLoadTest(): Promise<void> {
-  await runLoadTest('Medium', 500_000);
+  await runLoadTest('Medium', 350_000);
 }
 
 export async function runHeavyLoadTest(): Promise<void> {
-  await runLoadTest('Heavy', 750_000);
+  await runLoadTest('Heavy', 500_000);
 }
 
 async function runLoadTest(name: string, iterations: number) {

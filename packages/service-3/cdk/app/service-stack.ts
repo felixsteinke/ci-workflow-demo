@@ -140,45 +140,5 @@ export class ServiceStack extends Stack {
       environment: {},
     });
     bulkyDemoLambda15.node.addDependency(bulkyDemoLambda14);
-
-    const bulkyDemoLambda16 = new LambdaFunction(this, 'BulkyDemoLambda16', {
-      entry: pathResolve(__dirname, '../../src/lambda-handler/bulky-function-16.ts'),
-      timeout: Duration.seconds(15),
-      memorySize: 128,
-      environment: {},
-    });
-    bulkyDemoLambda16.node.addDependency(bulkyDemoLambda15);
-
-    const bulkyDemoLambda17 = new LambdaFunction(this, 'BulkyDemoLambda17', {
-      entry: pathResolve(__dirname, '../../src/lambda-handler/bulky-function-17.ts'),
-      timeout: Duration.seconds(15),
-      memorySize: 128,
-      environment: {},
-    });
-    bulkyDemoLambda17.node.addDependency(bulkyDemoLambda16);
-
-    const bulkyDemoLambda18 = new LambdaFunction(this, 'BulkyDemoLambda18', {
-      entry: pathResolve(__dirname, '../../src/lambda-handler/bulky-function-18.ts'),
-      timeout: Duration.seconds(15),
-      memorySize: 128,
-      environment: {},
-    });
-    bulkyDemoLambda18.node.addDependency(bulkyDemoLambda17);
-
-    const bulkyDemoLambda19 = new LambdaFunction(this, 'BulkyDemoLambda19', {
-      entry: pathResolve(__dirname, '../../src/lambda-handler/bulky-function-19.ts'),
-      timeout: Duration.seconds(15),
-      memorySize: 128,
-      environment: {},
-    });
-    bulkyDemoLambda19.node.addDependency(bulkyDemoLambda18);
-
-    const bulkyDemoLambda20 = new LambdaFunction(this, 'BulkyDemoLambda20', {
-      entry: pathResolve(__dirname, '../../src/lambda-handler/bulky-function-20.ts'),
-      timeout: Duration.seconds(15),
-      memorySize: 128,
-      environment: {},
-    });
-    bulkyDemoLambda20.node.addDependency(bulkyDemoLambda19);
   }
 }
