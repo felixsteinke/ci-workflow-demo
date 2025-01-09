@@ -4,7 +4,11 @@
   "version": "1.0.0",
   "description": "Basic Project for CI/CD Demo",
   "scripts": {
-    "prettier": "prettier . --write"
+    "prettier": "prettier . --write",
+    "build": "npm run --prefix ./packages/service-1 build && npm run --prefix ./packages/service-2 build && npm run --prefix ./packages/service-3 build",
+    "lint": "npm run --prefix ./packages/service-1 lint && npm run --prefix ./packages/service-2 lint && npm run --prefix ./packages/service-3 lint",
+    "test": "npm run --prefix ./packages/service-1 test && npm run --prefix ./packages/service-2 test && npm run --prefix ./packages/service-3 test",
+    "deploy": "npm run --prefix ./packages/service-1 deploy && npm run --prefix ./packages/service-2 deploy && npm run --prefix ./packages/service-3 deploy"
   },
   "workspaces": [
     "packages/*"
