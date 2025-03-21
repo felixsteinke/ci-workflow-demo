@@ -16,7 +16,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "aws-cdk": "^2.174.1",
+    "aws-cdk": "^2.178.2",
     "aws-cdk-lib": "^2.174.1",
     "aws-lambda": "^1.0.7",
     "constructs": "^10.4.2",
