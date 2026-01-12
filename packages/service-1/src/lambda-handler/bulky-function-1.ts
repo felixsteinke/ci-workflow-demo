@@ -8,6 +8,7 @@ import { HttpIamAuthorizer } from 'aws-cdk-lib/aws-apigatewayv2-authorizers';
  */
 export const handler: Handler = async (event) => {
   console.log('Received event:', JSON.stringify(event));
+  console.log('Executing bulky function 1...');
 
   // CDK dependency results in a huge bundle size
   const authorizer = new HttpIamAuthorizer();
