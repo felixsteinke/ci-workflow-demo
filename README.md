@@ -15,9 +15,9 @@ Each service contains business logic, tests, and infrastructure code.
 
 ### System Requirements
 
-- Node.js v20+: [Download](https://nodejs.org/en/download/)
+- Node.js v24+: [Download](https://nodejs.org/en/download/)
     - Test Command: `node -v`
-- NPM v10+: Gets installed with Node.js
+- NPM v11+: Gets installed with Node.js
     - Test Command: `npm -v`
 - Recommended IDE:
     - Visual Studio Code: [Download](https://code.visualstudio.com/download)
