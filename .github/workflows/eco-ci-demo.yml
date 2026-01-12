@@ -16,10 +16,16 @@ jobs:
         with:
           task: start-measurement
 
+      - name: Eco-CI Measurement (1)
+        uses: green-coding-berlin/eco-ci-energy-estimation@v5
+        with:
+          task: get-measurement
+          label: 'idle'
+
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Eco-CI Measurement
+      - name: Eco-CI Measurement (2)
         uses: green-coding-berlin/eco-ci-energy-estimation@v5
         with:
           task: get-measurement
@@ -33,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Eco-CI Measurement
+      - name: Eco-CI Measurement (3)
         uses: green-coding-berlin/eco-ci-energy-estimation@v5
         with:
           task: get-measurement
