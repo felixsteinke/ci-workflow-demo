@@ -3,6 +3,9 @@ name: Eco-CI Demo Pipeline
 on:
   workflow_dispatch:
 
+env:
+  NODE_VERSION: '24' # LTS until 2027
+
 jobs:
   eco-ci-job:
     name: Eco-CI Job
@@ -14,9 +17,9 @@ jobs:
           task: start-measurement
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Eco-CI Measurement
         uses: green-coding-berlin/eco-ci-energy-estimation@main
