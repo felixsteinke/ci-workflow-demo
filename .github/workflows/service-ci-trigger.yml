@@ -1,0 +1,21 @@
+name: Service 1 CI Pipeline
+
+on:
+  push:
+    paths:
+      - packages/service-1/**
+  workflow_dispatch:
+    inputs:
+      service:
+        description: 'Service Package Name'
+        required: false
+        default: 'service-1'
+
+env:
+  SERVICE_NAME: ${{ github.event.inputs.service || 'service-1' }}
+
+jobs:
+  service-workflow:
+    uses: ./.github/workflows/reusable-service-ci.yml
+    with:
+      service: ${{ env.SERVICE_NAME }}
