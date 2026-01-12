@@ -11,11 +11,8 @@ on:
         required: false
         default: 'service-1'
 
-env:
-  SERVICE_NAME: ${{ github.event.inputs.service || 'service-1' }}
-
 jobs:
   service-workflow:
     uses: ./.github/workflows/reusable-service-ci.yml
     with:
-      service: ${{ env.SERVICE_NAME }}
+      service: ${{ github.event.inputs.service || 'service-1' }}
