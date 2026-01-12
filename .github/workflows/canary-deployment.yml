@@ -60,7 +60,7 @@ jobs:
     name: Continue Deployment Job
     runs-on: ubuntu-latest
     needs: deployment-evaluation
-    if: ${{ always() && inputs.canary-deploy == true && needs.bg-evaluation.result == 'success' }}
+    if: ${{ always() && inputs.canary-deploy == true && needs.deployment-evaluation.result == 'success' }}
     steps:
       - name: Update Environment to new Version
         if: ${{ env.decision == 'proceed' }}
@@ -70,7 +70,7 @@ jobs:
     name: Rollback Deployment Job
     runs-on: ubuntu-latest
     needs: deployment-evaluation
-    if: ${{ always() && inputs.canary-deploy == true && needs.bg-evaluation.result != 'success' }}
+    if: ${{ always() && inputs.canary-deploy == true && needs.deployment-evaluation.result != 'success' }}
     steps:
       - name: Rollback Environment to old Version
         run: echo "Rollback environment."
