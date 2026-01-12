@@ -63,7 +63,6 @@ jobs:
     if: ${{ always() && inputs.canary-deploy == true && needs.deployment-evaluation.result == 'success' }}
     steps:
       - name: Update Environment to new Version
-        if: ${{ env.decision == 'proceed' }}
         run: echo "Accept environment."
 
   rollback-deployment:
