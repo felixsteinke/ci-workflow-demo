@@ -1,18 +1,49 @@
-name: Mono-Repo CI Pipeline
+name: Mono-Repo CI (energy optimized)
 
 on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: ['**']
   workflow_dispatch:
 
 env:
-  NODE_VERSION: '24' # LTS until 2027
+  NODE_VERSION: '24'
 
 jobs:
+  detect-changes:
+    name: Detect Changed Services
+    runs-on: ubuntu-latest
+    outputs:
+      service-1: ${{ steps.filter.outputs.service-1 }}
+      service-2: ${{ steps.filter.outputs.service-2 }}
+      service-3: ${{ steps.filter.outputs.service-3 }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Detect service changes
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            service-1:
+              - 'packages/service-1/**'
+            service-2:
+              - 'packages/service-2/**'
+            service-3:
+              - 'packages/service-3/**'
+
   build:
     name: Build Job
     runs-on: ubuntu-latest
+    needs: detect-changes
     strategy:
       matrix:
         service: [service-1, service-2, service-3]
+    if: ${{ needs.detect-changes.outputs[matrix.service] == 'true' || github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -29,36 +60,14 @@ jobs:
         working-directory: ./packages/${{ matrix.service }}
         run: npm run build
 
-  test:
-    name: Test Job
-    runs-on: ubuntu-latest
-    needs: build
-    strategy:
-      matrix:
-        service: [service-1, service-2, service-3]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        working-directory: ./packages/${{ matrix.service }}
-        run: npm run test
-
   lint:
     name: Lint Job
     runs-on: ubuntu-latest
-    needs: build
+    needs: [detect-changes, build]
     strategy:
       matrix:
         service: [service-1, service-2, service-3]
+    if: ${{ needs.detect-changes.outputs[matrix.service] == 'true' || github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -71,16 +80,66 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
+      - name: Lint
         working-directory: ./packages/${{ matrix.service }}
         run: npm run lint
+
+  unit-test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: [detect-changes, build]
+    strategy:
+      matrix:
+        service: [service-1, service-2, service-3]
+    if: ${{ needs.detect-changes.outputs[matrix.service] == 'true' || github.event_name == 'workflow_dispatch' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        working-directory: ./packages/${{ matrix.service }}
+        run: npm run test
+
+  integration-test:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: [detect-changes, build]
+    strategy:
+      matrix:
+        service: [service-1, service-2, service-3]
+    if: ${{ (github.ref == 'refs/heads/main' || github.event_name == 'pull_request') && (needs.detect-changes.outputs[matrix.service] == 'true' || github.event_name == 'workflow_dispatch') }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run integration tests
+        working-directory: ./packages/${{ matrix.service }}
+        run: npm run test:int
 
   security-scan:
     name: Security Scan Job
     runs-on: ubuntu-latest
     needs:
-      - test
       - lint
+      - unit-test
+      - integration-test
+    if: ${{ github.ref == 'refs/heads/main' || github.event_name == 'pull_request' }}
     permissions:
       security-events: write
       packages: read
@@ -111,6 +170,7 @@ jobs:
     name: Deploy Job
     runs-on: ubuntu-latest
     needs: security-scan
+    if: ${{ github.ref == 'refs/heads/main' }}
     strategy:
       matrix:
         service: [service-1, service-2, service-3]
